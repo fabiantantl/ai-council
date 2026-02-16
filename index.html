@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LLM Council Chat</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+          <h1>LLM Council</h1>
+          <button id="darkModeToggle" class="ghost-btn" type="button">🌙</button>
+        </div>
+
+        <section class="card warning-card">
+          <h2>Security Note</h2>
+          <p>
+            API keys are stored in <code>localStorage</code> on this device. Never commit keys to Git
+            or share exported session files publicly.
+          </p>
+        </section>
+
+        <section class="card">
+          <h2>Session Controls</h2>
+          <div class="control-row">
+            <label for="responseMode">Mode</label>
+            <select id="responseMode">
+              <option value="parallel">Parallel</option>
+              <option value="debate">Debate</option>
+            </select>
+          </div>
+          <div class="button-grid">
+            <button id="continueDebateBtn" type="button" disabled>Continue Debate</button>
+            <button id="clearSessionBtn" type="button">Clear Session</button>
+            <button id="exportJsonBtn" type="button">Export JSON</button>
+            <button id="exportMdBtn" type="button">Export Markdown</button>
+          </div>
+          <p id="debateInfo" class="muted-text">Debate rounds used: 0 / 2</p>
+        </section>
+
+        <section class="card">
+          <h2>API Configuration</h2>
+          <div class="api-grid">
+            <label>
+              OpenAI Key
+              <input id="openaiKey" type="password" placeholder="sk-..." autocomplete="off" />
+            </label>
+            <label>
+              Anthropic Key
+              <input id="anthropicKey" type="password" placeholder="sk-ant-..." autocomplete="off" />
+            </label>
+            <label>
+              Google Key
+              <input id="googleKey" type="password" placeholder="AIza..." autocomplete="off" />
+            </label>
+          </div>
+
+          <h3>Models</h3>
+          <div id="modelToggles" class="model-list"></div>
+          <button id="saveConfigBtn" type="button">Save Config</button>
+        </section>
+
+        <section class="card">
+          <h2>Sessions</h2>
+          <ul id="sessionsList" class="sessions-list"></ul>
+        </section>
+      </aside>
+
+      <main class="chat-panel">
+        <header class="chat-header">
+          <div>
+            <h2 id="sessionTitle">New Session</h2>
+            <p id="statusText" class="muted-text">Ready</p>
+          </div>
+          <div id="costTracker" class="cost-chip">Estimated Cost: $0.0000</div>
+        </header>
+
+        <section id="messages" class="messages" aria-live="polite"></section>
+
+        <form id="chatForm" class="chat-input-wrap">
+          <textarea
+            id="promptInput"
+            rows="2"
+            placeholder="Ask the council something..."
+            required
+          ></textarea>
+          <button id="sendBtn" type="submit">Send</button>
+        </form>
+      </main>
+    </div>
+
+    <template id="messageTemplate">
+      <article class="message-row">
+        <div class="message-bubble">
+          <header class="message-meta">
+            <div class="meta-left">
+              <span class="avatar"></span>
+              <strong class="author"></strong>
+              <span class="timestamp"></span>
+            </div>
+            <div class="meta-right">
+              <span class="status-badge"></span>
+              <span class="token-count"></span>
+            </div>
+          </header>
+          <div class="message-content"></div>
+          <footer class="message-actions"></footer>
+        </div>
+      </article>
+    </template>
+
+    <script src="app.js"></script>
+  </body>
+</html>
