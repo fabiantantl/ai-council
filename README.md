@@ -48,7 +48,16 @@ It behaves like a group chat where each model has its own response stream, statu
 
 Open `index.html` in your browser.
 
-### Option B: Local static server (recommended)
+### Option B: npm dev server
+
+```bash
+npm install
+npm run dev
+```
+
+Then open: `http://localhost:5173`
+
+### Option C: Local static server (no npm required)
 
 ```bash
 python3 -m http.server 8080
